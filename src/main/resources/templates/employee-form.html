@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title th:text="${mode == 'edit' ? 'Emp1 • Edit employee' : 'Emp1 • New employee'}">Emp1 • Employee</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}" href="/css/app.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brandline">
+        <div class="logo-sm" aria-hidden="true">E</div>
+        <div>
+          <div class="title">Emp1</div>
+          <div class="subtitle">Employee Management</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <a class="btn-secondary" th:href="@{/employees}" href="/employees">Back</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="hero">
+      <div>
+        <h1 th:text="${mode == 'edit' ? 'Edit employee' : 'Add employee'}">Employee</h1>
+        <p class="muted">Fill the details below.</p>
+      </div>
+    </div>
+
+    <section class="panel">
+      <form class="form2"
+            th:object="${employee}"
+            method="post"
+            th:action="${mode == 'edit'} ? @{|/employees/${employee.id}|} : @{/employees}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <div class="grid">
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" type="text" th:field="*{name}" placeholder="Employee name" />
+            <div class="err" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+          </div>
+
+          <div class="field">
+            <label for="role">Role</label>
+            <input id="role" type="text" th:field="*{role}" placeholder="e.g. Software Engineer" />
+            <div class="err" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role error</div>
+          </div>
+
+          <div class="field">
+            <label for="qualification">Qualification</label>
+            <input id="qualification" type="text" th:field="*{qualification}" placeholder="e.g. B.E / B.Tech / MBA" />
+            <div class="err" th:if="${#fields.hasErrors('qualification')}" th:errors="*{qualification}">Qualification error</div>
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" type="email" th:field="*{email}" placeholder="name@company.com" />
+            <div class="err" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
+          </div>
+
+          <div class="field full">
+            <label for="address">Address</label>
+            <input id="address" type="text" th:field="*{address}" placeholder="City, State, Country" />
+            <div class="err" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address error</div>
+          </div>
+
+          <div class="field">
+            <label for="resume">Resume link (optional)</label>
+            <input id="resume" type="url" th:field="*{resume}" placeholder="https://..." />
+            <div class="err" th:if="${#fields.hasErrors('resume')}" th:errors="*{resume}">Resume error</div>
+          </div>
+
+          <div class="field">
+            <label for="portfolio">Portfolio link (optional)</label>
+            <input id="portfolio" type="url" th:field="*{portfolio}" placeholder="https://..." />
+            <div class="err" th:if="${#fields.hasErrors('portfolio')}" th:errors="*{portfolio}">Portfolio error</div>
+          </div>
+
+        </div>
+
+        <div class="row2">
+          <button class="btn" type="submit" th:text="${mode == 'edit' ? 'Save changes' : 'Create employee'}">Save</button>
+          <a class="btn-secondary" th:href="@{/employees}" href="/employees">Cancel</a>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script th:src="@{/js/app.js}" src="/js/app.js" defer></script>
+</body>
+</html>
+

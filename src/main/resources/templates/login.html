@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Emp1 • Sign in</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}" href="/css/app.css" />
+  <link rel="stylesheet" th:href="@{/css/login.css}" href="/css/login.css" />
+</head>
+<body class="bg">
+  <div class="bg-noise" aria-hidden="true"></div>
+  <div class="bg-blobs" aria-hidden="true">
+    <span class="blob b1"></span>
+    <span class="blob b2"></span>
+    <span class="blob b3"></span>
+  </div>
+
+  <main class="auth">
+    <section class="brand">
+      <div class="logo" aria-hidden="true">E</div>
+      <h1>Emp1</h1>
+      <p class="muted">Employee Management System</p>
+      <ul class="ticks">
+        <li>Fast in-memory CRUD</li>
+        <li>Secure login</li>
+        <li>Clean modern UI</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <header class="card-h">
+        <h2>Welcome back</h2>
+        <p class="muted">Sign in to manage employees.</p>
+      </header>
+
+      <div class="notice error" th:if="${param.error}">
+        Invalid username or password.
+      </div>
+      <div class="notice ok" th:if="${param.logout}">
+        You have been logged out.
+      </div>
+
+      <form class="form" method="post" th:action="@{/login}" action="/login" autocomplete="on" novalidate>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <div class="field">
+          <label for="username">Username</label>
+          <div class="input">
+            <input id="username" name="username" type="text" placeholder="admin" required autofocus />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="input">
+            <input id="password" name="password" type="password" placeholder="••••••••" required />
+            <button type="button" class="ghost" data-toggle-password aria-label="Toggle password visibility">
+              Show
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <label class="check">
+            <input type="checkbox" name="remember-me" />
+            <span>Remember me</span>
+          </label>
+          <span class="hint">Demo credentials below</span>
+        </div>
+
+        <button class="btn" type="submit">
+          <span>Sign in</span>
+          <span class="btn-glow" aria-hidden="true"></span>
+        </button>
+      </form>
+
+      <footer class="card-f">
+        <div class="creds">
+          <div><span class="k">Admin</span> <code>admin</code> / <code>admin123</code></div>
+          <div><span class="k">Employee</span> <code>employee</code> / <code>emp123</code></div>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <script th:src="@{/js/login.js}" src="/js/login.js" defer></script>
+</body>
+</html>
+
